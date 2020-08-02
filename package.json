@@ -1,0 +1,13 @@
+{
+  "id": "helpscout",
+  "name": "Help Scout",
+  "version": "1.0.0",
+  "description": "Help Scout",
+  "main": "index.js",
+  "author": "Chris Wood <chris.wood@hey.com>",
+  "license": "MIT",
+  "repository": "https://github.com/cpwood/recipe-helpscout",
+  "config": {
+    "serviceURL": "https://secure.helpscout.net"
+  }
+}
