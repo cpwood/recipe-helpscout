@@ -2,13 +2,26 @@ let lastPolled = new Date(2020, 1, 1);
 
 module.exports = (Franz) => {
   const getMessages = function getMessages() {
-      let now = new Date();
+    let count = 0;
+    let now = new Date();
 
-      // Only poll once a minute
+    if (document.location.href == "https://secure.helpscout.net/") {
+      // Data readily-available on homepage via App.data
+      lastPolled = now;
+
+      let mailboxes = App.data.favMailboxes.models;
+
+      mailboxes.forEach(m => {
+        count = count + m.attributes.folders.unassigned.count + m.attributes.folders.mine.count + m.attributes.folders.needsattn.count;
+      });
+
+      // set Franz badge
+      Franz.setBadge(count);
+    }
+    else {
+      // For other pages, poll once a minute
       if (now - lastPolled > 60000) {
         lastPolled = now;
-
-        let count = 0;
 
         $.get( "/", function( data ) {
           let html = /"mailboxes":([^\]]+?\])/.exec(data)[1];
@@ -22,6 +35,7 @@ module.exports = (Franz) => {
           Franz.setBadge(count);
         });
       }
+    }
   };
 
   // check for new messages every second and update Franz badge
