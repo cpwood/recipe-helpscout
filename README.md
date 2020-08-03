@@ -1,4 +1,4 @@
-# Hey for Franz
+# Help Scout for Franz
 This is the unofficial Franz recipe for Help Scout
 
 ### How to create your own Franz recipes:
